@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Join Game</title>
+    <style>
+        body {
+            background-color: #fdf5e6; /* Pastel yellow background color */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: #ffc107 !important; /* Darker yellow button color */
+            border-color: #ffc107 !important;
+            color: black;
+        }
+
+        .form-control {
+            max-width: 300px; /* Adjust the maximum width as desired */
+            margin: 0 auto; /* Center the textboxes horizontally */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Join Game</h1>
+    <h3>Bad code, try again</h3>
+    <form id="joinForm">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" maxlength="15" required>
+        </div>
+        <div class="form-group">
+            <label for="code">Code:</label>
+            <input type="text" class="form-control" id="code" pattern="[A-Za-z0-9]{4}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Join</button>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#joinForm').submit(function (event) {
+            event.preventDefault(); // Prevent form submission
+
+            var playerName = $('#name').val();
+            //code needs to be uppercase
+            var playerCode = $('#code').val().toUpperCase();
+
+            // Send POST request to /joinGame
+            $.post('/joinGame', {player: playerName, code: playerCode})
+                .done(function (response) {
+                    // Handle successful response here
+                    console.log('Successfully joined the game:', response);
+                })
+                .fail(function (error) {
+                    // Handle error here
+                    console.error('Failed to join the game:', error);
+                });
+        });
+    });
+</script>
+</body>
+</html>

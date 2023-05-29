@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #FDE3A7;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .form-group {
+            text-align: center;
+        }
+
+        .btn-start {
+            background-color: #FDBD3B;
+            border-color: #FDBD3B;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#startButton").click(function () {
+                var name = $("#name").val();
+                var time = $("#time").val();
+
+
+                $.post('/createGame', {player: name, guessTime: time})
+                    .done(function (response) {
+                        // Handle successful response here
+                        console.log('Successfully joined the game:', response);
+                        //store the player name and code in cookies
+                        document.cookie = "player=" + name;
+                        document.cookie = "code=" + response;
+                        window.location.href = '/waitingRoom/' + response;
+                    })
+                    .fail(function (error) {
+                        // Handle error here
+                        console.error('Failed to join the game:', error);
+                    });
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <h2 class="text-center mb-4">Game Settings</h2>
+    <form>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+            <label for="time">Time to Guess (in seconds):</label>
+            <input type="range" class="form-control-range" id="time" min="60" max="360" value="180"
+                   oninput="timeValue.innerText = time.value">
+            <span id="timeValue">180</span>
+        </div>
+        <button type="button" class="btn btn-start btn-block" id="startButton">Start</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+hi
+{{ code }}
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+
+<script>
+var socket = io.connect();
+// Access the cookie values using a helper function
+function getCookieValue(name) {
+  const cookies = document.cookie.split('; ');
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].split('=');
+    if (cookie[0] === name) {
+      return cookie[1];
+    }
+  }
+  return '';
+}
+socket.on('connect', function() {
+  console.log('Connected to the server.');
+  //get the code and player from cookies
+  socket.on('player_joined', function(data) {
+    console.log('Received data from server: ', data);
+    document.body.innerHTML += '<p>' + data.player + ' joined the game.</p>';
+  });
+});
+</script>
+</body>
+</html>
