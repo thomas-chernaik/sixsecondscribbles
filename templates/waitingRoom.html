@@ -3,37 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        body {
+            background-color: #FDE3A7; /* Pastel yellow background color */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+    </style>
 </head>
 <body>
-hi
-{{ code }}
+<div class="container">
+    <h1>Waiting for players</h1>
+    <h3> the code is: {{ code }}</h3>
+    <button class="btn btn-primary">Start</button>
 
+    <ul class="list-group mt-4" id="player-list">
+    </ul>
+</div>
 
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
 
 <script>
-var socket = io.connect();
-// Access the cookie values using a helper function
-function getCookieValue(name) {
-  const cookies = document.cookie.split('; ');
-  for (let i = 0; i < cookies.length; i++) {
-    const cookie = cookies[i].split('=');
-    if (cookie[0] === name) {
-      return cookie[1];
+    var players = {};
+    var socket = io.connect();
+
+    // Access the cookie values using a helper function
+    function getCookieValue(name) {
+        const cookies = document.cookie.split('; ');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].split('=');
+            if (cookie[0] === name) {
+                return cookie[1];
+            }
+        }
+        return '';
     }
-  }
-  return '';
-}
-socket.on('connect', function() {
-  console.log('Connected to the server.');
-  //get the code and player from cookies
-  socket.on('player_joined', function(data) {
-    console.log('Received data from server: ', data);
-    document.body.innerHTML += '<p>' + data.player + ' joined the game.</p>';
-  });
-});
+
+    socket.on('connect', function () {
+        console.log('Connected to the server.');
+        socket.emit('join', {room: getCookieValue('code'), player: getCookieValue('player')});
+        //get the code and player from cookies
+        socket.on('player_joined', function (data) {
+            console.log('Received data from server: ', data);
+            //document.body.innerHTML += '<p>' + data.player + ' joined the game.</p>';
+            var newPlayers = data.player;
+            //add a new bootstrap list element for all players in new players that aren't in players to element player-list
+            for (var i = 0; i < newPlayers.length; i++) {
+                if (!(newPlayers[i] in players)) {
+                    players[newPlayers[i]] = newPlayers[i];
+                    var li = document.createElement("li");
+                    li.className = "list-group-item";
+                    li.appendChild(document.createTextNode(newPlayers[i]));
+                    document.getElementById("player-list").appendChild(li);
+                }
+            }
+        });
+    });
 </script>
+<!-- Bootstrap JS and your custom script -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -17,6 +17,13 @@ socketio = SocketIO(app)
 def main_page():  # put application's code here
     return render_template('home.html')
 
+@app.route('/card')
+def card():
+    return render_template('card.html')
+
+@app.route('/draw')
+def draw():
+    return render_template('draw.html')
 
 @app.route('/createGame', methods=['GET', 'POST'])
 def create_game():
@@ -42,8 +49,8 @@ def join_game():
         code = request.form['code']
         if code not in app.config['GAMES']:
             return redirect(url_for('bad_code'))
+
         app.config['GAMES'][code].add_player(request.form['player'])
-        emit('player_joined', {'player': request.form['player']}, room=code, namespace='/')
         return code
     #if get
     return render_template('joinGame.html')
@@ -57,7 +64,7 @@ def handle_join(data):
     print(room)
     join_room(room)
     print('Client joined room:', room)
-    emit('player_joined', {'player': data['player']}, room=data['room'])
+    emit('player_joined', {'player': app.config['GAMES'][data['room']].getPlayers()}, room=data['room'])
 @socketio.on('connect')
 def handle_connect():
     print('Client connected')
