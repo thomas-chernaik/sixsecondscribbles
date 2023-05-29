@@ -80,3 +80,49 @@ window.addEventListener('load', function () {
     ;
 
 });
+
+
+function uploadCanvas() {
+    //get the canvas as a png to upload
+    var canvas = document.getElementById("myCanvas");
+    var dataURL = canvas.toDataURL("image/png");
+    // Create an image element
+    const image = new Image();
+
+// Set the source of the image as the captured Data URL
+    image.src = dataURL;
+
+// Append the image to the document body
+    document.body.appendChild(image);
+    //send the png to the server, and the card as form data from the element card-name
+    var cardName = document.getElementById("card-name").value;
+
+    // Send the image to the server
+    fetch('/uploadImage', {
+        method: 'POST',
+        body: JSON.stringify({image: dataURL}),
+        headers: {
+            'Content-Type': 'application/json',
+            'card-name': cardName
+        }
+    })
+        .then(response => {
+            // Handle the server response
+            console.log('Image uploaded successfully');
+        })
+        .catch(error => {
+            // Handle any errors
+            console.error('Error uploading image:', error);
+        });
+
+
+}
+
+//call uploadCanvas when k is pressed
+document.addEventListener('keydown', function (event) {
+    if (event.keyCode == 75) {
+        console.log("hi");
+        uploadCanvas();
+    }
+});
+

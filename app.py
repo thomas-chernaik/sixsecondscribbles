@@ -3,14 +3,21 @@ from flask import render_template
 from flask import request
 from flask import redirect
 from flask import url_for
+from flask import make_response
+from flask import send_file
+from io import BytesIO
+import base64
+
 from flask_socketio import SocketIO, emit, join_room
 
 from GameManager import Game
+from BadlyPreservedPickles import BadlyPreservedPickles
 app = Flask(__name__)
 app.config['GAMES'] = {}
 #turn debug on
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = 'your-secret-key'
+app.config['pickler'] = BadlyPreservedPickles()
 socketio = SocketIO(app)
 
 @app.route('/')
@@ -58,6 +65,42 @@ def join_game():
 @app.route('/badCode')
 def bad_code():
     return render_template('badCode.html')
+
+@app.route('/uploadImage', methods=['POST'])
+def upload_image():
+    file = request.json['image']
+    to_pickle = (file, request.headers["card-name"])
+    filename = app.config['pickler'].pickle(to_pickle, request.cookies["player"], 600)
+    print(request.cookies["player"])
+    return filename
+
+@app.route('/getImage/<filename>')
+def get_image(filename):
+    # Unpickle the object
+    unpickled = app.config['pickler'].unpickle(filename + ".pickle")
+
+    # Extract the base64-encoded image data from the data URL
+    image_data_url = unpickled[0]
+    _, encoded_image_data = image_data_url.split(',', 1)
+
+    # Decode the base64-encoded image data
+    try:
+        image_data = base64.b64decode(encoded_image_data)
+    except (TypeError, binascii.Error):
+        return "Invalid image data"
+
+    # Serve the image using Flask's send_file function
+    try:
+        image_buffer = BytesIO(image_data)
+        return send_file(
+            image_buffer,
+            mimetype='image/png',
+            as_attachment=True,
+            download_name=unpickled[1] + ".png"
+        )
+    except Exception as e:
+        return str(e)
+
 @socketio.on('join')
 def handle_join(data):
     room = data['room']
