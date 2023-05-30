@@ -4,7 +4,8 @@ import time
 
 
 class Game:
-    def __init__(self, code, guess_time):
+    def __init__(self, code, guess_time, socket):
+        self.socket = socket
         self.cards = {}
         self.usedCards = []
         self.players = []
@@ -94,7 +95,9 @@ class Game:
             time.sleep(1)
         self.locked = True
         self.current_round += 1
+        self.locked = False
         self.set_difficulty()
+        self.locked = True
         self.roundStartTime = time.time()
         self.locked = False
 
@@ -146,8 +149,10 @@ class Game:
             time.sleep(1)
         self.locked = True
         self.startVotes += 1
-        if self.startVotes > len(self.players) / 2:
+        if self.startVotes > len(self.players) / 2:# and len(self.players) > 3:
+            self.locked = False
             self.start_round()
+            self.socket.emit("startRound", room=self.code)
         self.locked = False
 
     def getPlayers(self):

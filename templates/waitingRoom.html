@@ -25,7 +25,7 @@
 <div class="container">
     <h1>Waiting for players</h1>
     <h3> the code is: {{ code }}</h3>
-    <button class="btn btn-primary">Start</button>
+    <button class="btn btn-primary" id="vote" onclick="vote()">Vote to start</button>
 
     <ul class="list-group mt-4" id="player-list">
     </ul>
@@ -70,6 +70,20 @@
             }
         });
     });
+    socket.on('startRound', function (data) {
+        console.log('Received data from server: ', data);
+        //redirect to the game page
+        window.location.href = "/draw";
+    });
+
+    function vote()
+    {
+        socket.emit('vote_to_start', {room: getCookieValue('code'), player: getCookieValue('player')});
+        //disable the button
+        document.getElementById("vote").disabled = true;
+        //update the text
+        document.getElementById("vote").innerHTML = "Waiting for other players";
+    }
 </script>
 <!-- Bootstrap JS and your custom script -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

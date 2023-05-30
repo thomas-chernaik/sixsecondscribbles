@@ -39,7 +39,7 @@ def create_game():
         code = Game.generateCode()
         while code in app.config['GAMES']:
             code = Game.generateCode()
-        app.config['GAMES'][code] = Game(code, request.form['guessTime'])
+        app.config['GAMES'][code] = Game(code, request.form['guessTime'], socketio)
         app.config['GAMES'][code].add_player(request.form['player'])
         return code
     #if get
@@ -115,5 +115,13 @@ def handle_connect():
 @socketio.on('disconnect')
 def handle_disconnect():
     print('Client disconnected')
+
+@socketio.on('vote_to_start')
+def handle_vote(data):
+    print('vote_to_start')
+    room = data['room']
+    player = data['player']
+    app.config['GAMES'][room].vote_to_start(player)
+
 if __name__ == '__main__':
     socketio.run(app)

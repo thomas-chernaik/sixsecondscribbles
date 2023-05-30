@@ -5,6 +5,9 @@ window.addEventListener('load', function () {
     const penSize = document.getElementById("mySlider");
     const colorSelector = document.getElementById("myColor");
     var context = canvas.getContext("2d");
+    //initialise the canvas with a white background
+    context.fillStyle = "white";
+    context.fillRect(0, 0, 100000, 100000);
 
 
     function resizeCanvas() {
@@ -23,7 +26,11 @@ window.addEventListener('load', function () {
         canvasContainer.style.width = canvasSize + 'px';
         canvasContainer.style.height = canvasSize + 'px';
 
+        //fill the canvas with white where the image data doesn't reach
+        context.fillStyle = "white";
+        context.fillRect(0, 0, 100000, 100000);
         context.putImageData(imageData, 0, 0);
+
 
     }
 
@@ -92,8 +99,6 @@ function uploadCanvas() {
 // Set the source of the image as the captured Data URL
     image.src = dataURL;
 
-// Append the image to the document body
-    document.body.appendChild(image);
     //send the png to the server, and the card as form data from the element card-name
     var cardName = document.getElementById("card-name").value;
 
@@ -125,4 +130,20 @@ document.addEventListener('keydown', function (event) {
         uploadCanvas();
     }
 });
+
+//count down timer from 60 to 0
+var timeleft = 60;
+var downloadTimer = setInterval(function () {
+    if (timeleft <= 0) {
+        clearInterval(downloadTimer);
+        document.getElementById("countdown").innerHTML = "Finished";
+        uploadCanvas();
+        //disable canvas
+        var canvas = document.getElementById("myCanvas");
+        canvas.style.pointerEvents = 'none';
+    } else {
+        document.getElementById("countdown").innerHTML = timeleft + " seconds remaining";
+    }
+    timeleft -= 1;
+}, 1000);
 
