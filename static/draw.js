@@ -141,9 +141,63 @@ var downloadTimer = setInterval(function () {
         //disable canvas
         var canvas = document.getElementById("myCanvas");
         canvas.style.pointerEvents = 'none';
+        //make all cards clickable
+        makeCardsClickable();
+        replaceCanvasItemsWithImage();
+
     } else {
         document.getElementById("countdown").innerHTML = timeleft + " seconds remaining";
     }
     timeleft -= 1;
 }, 1000);
 
+
+function makeCardsClickable() {
+    //make all cards clickable
+    var iframe = document.getElementById("card-iframe");
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var cards = innerDoc.getElementsByClassName("card");
+    for (var i = 0; i < cards.length; i++) {
+        //make the card #00ff00 when clicked, or #e3cc99 if it is already green
+        cards[i].addEventListener("click", function () {
+            if (this.style.backgroundColor != "rgb(0, 255, 0)") {
+                this.style.backgroundColor = "#00ff00";
+            } else {
+                this.style.backgroundColor = "#e3cc99";
+            }
+        });
+    }
+}
+
+function replaceCanvasItemsWithImage()
+{
+    var canvasItems = document.getElementById("canvas-items").children;
+    //remove all canvas items
+    while (canvasItems.length > 0) {
+        canvasItems[0].remove();
+    }
+    //add the image
+    var image = document.createElement("img");
+    image.src = "/static/undefined(9).png";
+    //apply the formatting from the canvas to the image
+    var padding = 0.05 * window.innerWidth;
+    var imageSizeW = window.innerWidth - 2 * padding;
+    var padding = 0.25 * window.innerHeight;
+    var imageSizeH = window.innerHeight - 2 * padding;
+    var imageSize = Math.min(imageSizeH, imageSizeW);
+    image.style.width = imageSize + "px";
+    image.style.height = imageSize + "px";
+    //create a new bootstrap div to hold the image and center it
+    var newDiv = document.createElement("div");
+    newDiv.className = "d-flex justify-content-center";
+    newDiv.appendChild(image);
+    //add the div to the canvas
+    document.getElementById("canvas-items").appendChild(newDiv);
+
+    //make the submit button visible
+    document.getElementById("submit-btn").style.visibility = "visible";
+
+
+
+
+}

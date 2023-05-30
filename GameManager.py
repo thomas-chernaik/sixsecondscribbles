@@ -22,6 +22,7 @@ class Game:
         self.guessTime = guess_time
         self.displayLeaderboardTime = 20
         self.startVotes = 0
+        self.numToPass = 0
 
     def add_player(self, player):
         while self.locked:
@@ -99,6 +100,10 @@ class Game:
         self.set_difficulty()
         self.locked = True
         self.roundStartTime = time.time()
+        self.numToPass += 1
+        self.numToPass %= len(self.players)
+        if self.numToPass == 0:
+            self.numToPass = 1
         self.locked = False
 
     def getCurrentSection(self):

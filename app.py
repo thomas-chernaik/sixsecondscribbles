@@ -71,7 +71,6 @@ def upload_image():
     file = request.json['image']
     to_pickle = (file, request.headers["card-name"])
     filename = app.config['pickler'].pickle(to_pickle, request.cookies["player"], 600)
-    print(request.cookies["player"])
     return filename
 
 @app.route('/getImage/<filename>')

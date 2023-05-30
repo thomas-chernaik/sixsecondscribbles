@@ -17,62 +17,101 @@
             align-items: center;
             margin: 0 auto; /* Add this line to center horizontally */
         }
+
+        body {
+            background-color: #FDE3A7;
+        }
+
+
+        .custom-iframe {
+            position: flex;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        #submit-btn {
+            visibility: hidden;
+            background-color: #c5b27e;
+            border-color: #bbad7b;
+            color: #101040;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <div id="canvas-items">
+        <div class="row justify-content-center mt-4">
+
+            <div class="col-4 row justify-content-center">
+                <h4 class="text-center" id="countdown">Time left: 60</h4>
+
+            </div>
+            <div class="col-4 row justify-content-center">
+                <h4 class="text-center" id="card-name"></h4>
+
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4">
+            <div class="col-6">
+                <h2 class="text-center">Pen size</h2>
+                <div class="text-center">
+                    <input type="range" min="1" max="100" step="1" value="50" id="mySlider">
+                </div>
+                <h4 class="text-center" id="penSizeNum">0</h4>
+            </div>
+
+            <div class="col-6">
+                <h2 class="text-center">Colour</h2>
+                <div class="text-center">
+                    <input type="color" id="myColor">
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div id="canvas-container" class="text-center">
+                    <canvas id="myCanvas" width="400" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row justify-content-center mt-4">
-
-        <div class="col-4 row justify-content-center">
-            <h4 class="text-center" id="countdown">Time left: 60</h4>
-
+        <div class="col-12">
+            <div class="iframe-wrapper">
+                <iframe class="custom-iframe" id="card-iframe" src="/card" onload="resizeIframe()"></iframe>
+            </div>
         </div>
-        <div class="col-4 row justify-content-center">
-            <h4 class="text-center" id="card-name"></h4>
 
-        </div>
     </div>
-    <div class="row justify-content-center mt-4">
-        <div class="col-6">
-            <h2 class="text-center">Pen size</h2>
+    <div class="row justify-content-center mt-4" id="submit-button">
+        <div class="col-12">
             <div class="text-center">
-                <input type="range" min="0" max="100" step="1" value="50" id="mySlider">
-            </div>
-            <h4 class="text-center" id="penSizeNum">0</h4>
-        </div>
-
-        <div class="col-6">
-            <h2 class="text-center">Colour</h2>
-            <div class="text-center">
-                <input type="color" id="myColor">
+                <button class="btn btn-primary" id="submit-btn">Submit</button>
             </div>
         </div>
+        <div class="col-12" style="height: 10px"></div>
+
+
     </div>
 
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div id="canvas-container" class="text-center">
-                <canvas id="myCanvas" width="400" height="400"></canvas>
-            </div>
-        </div>
-    </div>
-    <div class="row mt-1">
-            <div class="col-12">
-      <div class="embed-responsive embed-responsive-16by9">
-        <iframe class="embed-responsive-item custom-iframe" src="/card"></iframe>
-      </div>
-    </div>
-    </div>
-</div>
+    <script>
+        function resizeIframe() {
+            var iframe = document.getElementById('card-iframe');
+            iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+        }
+
+    </script>
+    <!-- Bootstrap JS and your custom script -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 
-<!-- Bootstrap JS and your custom script -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
-
-<script src="../static/draw.js"></script>
+    <script src="../static/draw.js"></script>
 </body>
 </html>
