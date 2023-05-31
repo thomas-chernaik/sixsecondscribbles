@@ -79,8 +79,8 @@
         </div>
         <div class="col-4 player-card">
             <h2>First Place</h2>
-            <p>Player 1</p>
-            <p>Score: 400</p>
+            <p>{{ players[0][0]}}</p>
+            <p>Score: {{players[0][1]}}</p>
         </div>
     </div>
     <div class="row">
@@ -92,8 +92,8 @@
         </div>
         <div class="col-4 player-card">
             <h2>Second Place</h2>
-            <p>Player 2</p>
-            <p>Score: 350</p>
+            <p>{{ players[1][0] }}</p>
+            <p>Score: {{players[1][1]}}</p>
         </div>
         <div class="col-4 player-card">
             <!-- Empty column for spacing -->
@@ -102,8 +102,8 @@
     <div class="row">
         <div class="col-4 player-card">
             <h2>Third Place</h2>
-            <p>Player 3</p>
-            <p>Score: 250</p>
+            <p>{{ players[2][0]}}</p>
+            <p>Score: {{ players[2][1] }}</p>
         </div>
         <div class="col-4 player-card">
             <div class="gold-rectangle"></div>
@@ -123,6 +123,7 @@
             <div class="silver-rectangle"></div>
         </div>
     </div>
+{% if players|length > 3 %}
     <h2 class="text-center">Other Players</h2>
     <table class="table">
         <thead>
@@ -133,24 +134,18 @@
         </tr>
         </thead>
         <tbody>
+        <!-- Add a row for each player, ignoring the first three the players are in players as tuples -->
+        {% for player in players[3:] %}
         <tr>
-            <td>4</td>
-            <td>Player 4</td>
-            <td>Score: 200</td>
+            <td>{{player[2]}}</td>
+            <td>{{player[0]}}</td>
+            <td>{{player[1]}}</td>
         </tr>
-        <tr>
-            <td>5</td>
-            <td>Player 5</td>
-            <td>Score: 180</td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <td>Player 6</td>
-            <td>Score: 150</td>
-        </tr>
+        {% endfor %}
         <!-- Add more rows for additional players -->
         </tbody>
     </table>
+    {% endif %}
     <!-- Add a button to return to the game -->
     <div class="text-center">
         <a class="btn btn-info">Next round</a>
