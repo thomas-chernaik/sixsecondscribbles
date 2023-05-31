@@ -61,6 +61,9 @@ class Game:
         for player in self.players:
             leaderboard.append((player, self.scores[player]))
         leaderboard.sort(key=lambda x: x[1], reverse=True)
+        # add the rank to the leaderboard
+        for i in range(len(leaderboard)):
+            leaderboard[i] = (leaderboard[i][0], leaderboard[i][1], i + 1)
         self.locked = False
         return leaderboard
 
@@ -143,7 +146,7 @@ class Game:
         elif time.time() - self.roundStartTime < self.drawLeadTime + self.drawTime + self.guessTime + self.displayLeaderboardTime:
             self.locked = False
             return self.drawLeadTime + self.drawTime + self.guessTime + self.displayLeaderboardTime - (
-                        time.time() - self.roundStartTime)
+                    time.time() - self.roundStartTime)
         else:
             self.start_round()
             self.locked = False
@@ -154,7 +157,7 @@ class Game:
             time.sleep(1)
         self.locked = True
         self.startVotes += 1
-        if self.startVotes > len(self.players) / 2:# and len(self.players) > 3:
+        if self.startVotes > len(self.players) / 2:  # and len(self.players) > 3:
             self.locked = False
             self.start_round()
             self.socket.emit("startRound", room=self.code)
@@ -162,6 +165,15 @@ class Game:
 
     def getPlayers(self):
         return self.players
+
+    def submit_card(self, player, score):
+        while self.locked:
+            time.sleep(1)
+        self.locked = True
+        otherPlayer = self.players.index(player) + self.numToPass
+        otherPlayer %= len(self.players)
+        self.locked = False
+        self.add_score(player, self.players[otherPlayer], score)
 
     @staticmethod
     def generateCode():

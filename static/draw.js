@@ -201,3 +201,35 @@ function replaceCanvasItemsWithImage()
 
 
 }
+
+function submitCards() {
+    //count the number of green cards
+    var iframe = document.getElementById("card-iframe");
+    var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+    var cards = innerDoc.getElementsByClassName("card");
+    var greenCards = 0;
+    for (var i = 0; i < cards.length; i++) {
+        if (cards[i].style.backgroundColor == "rgb(0, 255, 0)") {
+            greenCards++;
+        }
+    }
+    //send the number of green cards to the server
+    fetch('/submitCard', {
+        method: 'POST',
+        body: JSON.stringify({numCards: greenCards}),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    );
+    //disable the submit button
+    document.getElementById("submit-btn").disabled = true;
+    //rename the submit button to "waiting for other players to score"
+    document.getElementById("submit-btn").innerText = "Waiting for other players to score";
+
+}
+
+socket.on('leaderboardDisplay', function (data) {
+    //redirect to leaderboard
+    window.location.href = "/leaderboard";
+});

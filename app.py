@@ -62,6 +62,10 @@ def join_game():
     #if get
     return render_template('joinGame.html')
 
+@app.route('/leaderboard/')
+def leaderboard():
+    return render_template('leaderboard.html', players = app.config['GAMES'][request.cookies['code']].get_leaderboard())
+
 @app.route('/badCode')
 def bad_code():
     return render_template('badCode.html')
@@ -99,6 +103,11 @@ def get_image(filename):
         )
     except Exception as e:
         return str(e)
+
+@app.route('/submitCard', methods=['POST'])
+def submit_card():
+    app.config['GAMES'][request.cookies['code']].submit_card(request.cookies['player'], request.json['numCards'])
+    return "success"
 
 @socketio.on('join')
 def handle_join(data):
