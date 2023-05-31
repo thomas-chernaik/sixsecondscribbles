@@ -150,5 +150,18 @@ def handle_next_round(data):
     room = data['room']
     app.config['GAMES'][room].vote_to_start(data['player'])
 
+
+@socketio.on('easy')
+def handle_easy(data):
+    app.config['GAMES'][data['room']].set_difficulty(data['player'], 0)
+
+@socketio.on('difficult')
+def handle_medium(data):
+    app.config['GAMES'][data['room']].set_difficulty(data['player'], 1)
+
+@socketio.on('impossible')
+def handle_hard(data):
+    app.config['GAMES'][data['room']].set_difficulty(data['player'], 2)
+
 if __name__ == '__main__':
     socketio.run(app)

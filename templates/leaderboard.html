@@ -155,6 +155,13 @@
     <div class="text-center" style="padding-top: 20px">
         <a class="btn btn-info" id="next-round" onclick="nextRound()">Next round</a>
     </div>
+    <!-- add a row of buttons for easy, difficult, and impossible -->
+    <h3 class="text-center">Vote on difficulty</h3>
+    <div class="text-center" style="padding-top: 20px">
+        <a class="btn btn-info" id="easy" onclick="easy()">Easy</a>
+        <a class="btn btn-info" id="difficult" onclick="difficult()">Difficult</a>
+        <a class="btn btn-info" id="impossible" onclick="impossible()">Impossible</a>
+    </div>
 </div>
 
 
@@ -198,6 +205,33 @@
         $("#next-round").text("Waiting for other players");
         //disable the button
         document.getElementById("next-round").disabled = true;
+    }
+
+    function easy(){
+        console.log("easy")
+        socket.emit('easy', {room: getCookieValue('code'), player: getCookieValue('player')});
+        //disable the buttons
+        document.getElementById("easy").disabled = true;
+        document.getElementById("difficult").disabled = true;
+        document.getElementById("impossible").disabled = true;
+    }
+
+    function difficult(){
+        console.log("difficult")
+        socket.emit('difficult', {room: getCookieValue('code'), player: getCookieValue('player')});
+        //disable the buttons
+        document.getElementById("easy").disabled = true;
+        document.getElementById("difficult").disabled = true;
+        document.getElementById("impossible").disabled = true;
+    }
+
+    function impossible(){
+        console.log("impossible")
+        socket.emit('impossible', {room: getCookieValue('code'), player: getCookieValue('player')});
+        //disable the buttons
+        document.getElementById("easy").disabled = true;
+        document.getElementById("difficult").disabled = true;
+        document.getElementById("impossible").disabled = true;
     }
 
 </script>

@@ -26,6 +26,7 @@ class Game:
         self.numToPass = 0
         self.numScored = 0
         self.players_cards = {}
+        self.startVotesPlayers = set()
 
     def add_player(self, player):
         while self.locked:
@@ -128,57 +129,15 @@ class Game:
         self.numScored = 0
         self.locked = False
 
-    """
-
-    def getCurrentSection(self):
-        while self.locked:
-            time.sleep(1)
-        self.locked = True
-        if time.time() - self.roundStartTime < self.drawLeadTime:
-            self.locked = False
-            return "drawLead"
-        elif time.time() - self.roundStartTime < self.drawLeadTime + self.drawTime:
-            self.locked = False
-            return "draw"
-        elif time.time() - self.roundStartTime < self.drawLeadTime + self.drawTime + self.guessTime:
-            self.locked = False
-            return "guess"
-        elif time.time() - self.roundStartTime < self.drawLeadTime + self.drawTime + self.guessTime + self.displayLeaderboardTime:
-            self.locked = False
-            return "displayLeaderboard"
-        else:
-            self.start_round()
-            self.locked = False
-            return "drawLead"
-
-    def getTimeLeftInSection(self):
-        while self.locked:
-            time.sleep(1)
-        self.locked = True
-        if time.time() - self.roundStartTime < self.drawLeadTime:
-            self.locked = False
-            return self.drawLeadTime - (time.time() - self.roundStartTime)
-        elif time.time() - self.roundStartTime < self.drawLeadTime + self.drawTime:
-            self.locked = False
-            return self.drawLeadTime + self.drawTime - (time.time() - self.roundStartTime)
-        elif time.time() - self.roundStartTime < self.drawLeadTime + self.drawTime + self.guessTime:
-            self.locked = False
-            return self.drawLeadTime + self.drawTime + self.guessTime - (time.time() - self.roundStartTime)
-        elif time.time() - self.roundStartTime < self.drawLeadTime + self.drawTime + self.guessTime + self.displayLeaderboardTime:
-            self.locked = False
-            return self.drawLeadTime + self.drawTime + self.guessTime + self.displayLeaderboardTime - (
-                    time.time() - self.roundStartTime)
-        else:
-            self.start_round()
-            self.locked = False
-            return self.drawLeadTime - (time.time() - self.roundStartTime)
-            
-            """
-
     def vote_to_start(self, player):
         while self.locked:
             time.sleep(1)
         self.locked = True
+        if player not in self.start_votes:
+            self.start_votes.add(player)
+        else:
+            self.locked = False
+            return # already voted
         self.startVotes += 1
         if self.startVotes > len(self.players) / 2:  # and len(self.players) > 3:
             self.startVotes = 0
