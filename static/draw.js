@@ -1,4 +1,5 @@
 var isDrawing = false;
+var socket = io.connect();
 window.addEventListener('load', function () {
     const canvasContainer = document.getElementById('canvas-container');
     const canvas = document.getElementById('myCanvas');
@@ -132,25 +133,52 @@ document.addEventListener('keydown', function (event) {
 });
 
 //count down timer from 60 to 0
-var timeleft = 60;
+var timeleft = 10;
 var downloadTimer = setInterval(function () {
-    if (timeleft <= 0) {
-        clearInterval(downloadTimer);
+    if (timeleft == 0) {
         document.getElementById("countdown").innerHTML = "Finished";
         uploadCanvas();
         //disable canvas
         var canvas = document.getElementById("myCanvas");
         canvas.style.pointerEvents = 'none';
+    } else if (timeleft <= -1) {
         //make all cards clickable
         makeCardsClickable();
         replaceCanvasItemsWithImage();
-
-    } else {
+        getCardTitle();
+        clearInterval(downloadTimer);
+        console.log("hi");
+    } else if (timeleft > 0) {
         document.getElementById("countdown").innerHTML = timeleft + " seconds remaining";
     }
     timeleft -= 1;
 }, 1000);
 
+
+function getCardTitle() {
+    //get the card title from a request to the server using a get request to /getCardTitle
+    fetch('/getCardTitle', {
+        method: 'GET'
+    })
+        .then(response => {
+            // Handle the server response
+            console.log('Card title received successfully');
+            return response.text(); // Convert response to text
+        })
+        .then(data => {
+            // Process the response data
+            console.log(data); // Log the response data
+            var title = document.createElement("h4");
+            title.style.textAlign = "center";
+            title.innerText = data; // Set the response data as the title text
+            document.body.prepend(title);
+        })
+        .catch(error => {
+            // Handle any errors
+            console.error('Error receiving card title:', error);
+        });
+
+}
 
 function makeCardsClickable() {
     //make all cards clickable
@@ -169,8 +197,7 @@ function makeCardsClickable() {
     }
 }
 
-function replaceCanvasItemsWithImage()
-{
+function replaceCanvasItemsWithImage() {
     var canvasItems = document.getElementById("canvas-items").children;
     //remove all canvas items
     while (canvasItems.length > 0) {
@@ -178,7 +205,7 @@ function replaceCanvasItemsWithImage()
     }
     //add the image
     var image = document.createElement("img");
-    image.src = "/static/undefined(9).png";
+    image.src = "/getImage";
     //apply the formatting from the canvas to the image
     var padding = 0.05 * window.innerWidth;
     var imageSizeW = window.innerWidth - 2 * padding;
@@ -198,8 +225,6 @@ function replaceCanvasItemsWithImage()
     document.getElementById("submit-btn").style.visibility = "visible";
 
 
-
-
 }
 
 function submitCards() {
@@ -215,12 +240,12 @@ function submitCards() {
     }
     //send the number of green cards to the server
     fetch('/submitCard', {
-        method: 'POST',
-        body: JSON.stringify({numCards: greenCards}),
-        headers: {
-            'Content-Type': 'application/json'
+            method: 'POST',
+            body: JSON.stringify({numCards: greenCards}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         }
-    }
     );
     //disable the submit button
     document.getElementById("submit-btn").disabled = true;
@@ -229,7 +254,7 @@ function submitCards() {
 
 }
 
-socket.on('leaderboardDisplay', function (data) {
+socket.on('displayLeaderboard', function (data) {
     //redirect to leaderboard
     window.location.href = "/leaderboard";
 });

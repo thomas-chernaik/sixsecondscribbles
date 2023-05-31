@@ -36,6 +36,7 @@
             flex-grow: 1;
 
         }
+
         .silver-rectangle {
             width: 50%;
             height: 100%;
@@ -44,6 +45,7 @@
             flex-grow: 1;
 
         }
+
         .bronze-rectangle {
             width: 50%;
             height: 100%;
@@ -56,14 +58,17 @@
         .row {
             align-items: stretch
         }
-        body{
+
+        body {
             background-color: #053b3b;
             color: #cccccc;
         }
-        td{
+
+        td {
             color: #cccccc;
         }
-        th{
+
+        th {
             color: #cccccc;
         }
     </style>
@@ -79,8 +84,8 @@
         </div>
         <div class="col-4 player-card">
             <h2>First Place</h2>
-            <p>{{ players[0][0]}}</p>
-            <p>Score: {{players[0][1]}}</p>
+            <p>{{ players[0][0] }}</p>
+            <p>Score: {{ players[0][1] }}</p>
         </div>
     </div>
     <div class="row">
@@ -93,7 +98,7 @@
         <div class="col-4 player-card">
             <h2>Second Place</h2>
             <p>{{ players[1][0] }}</p>
-            <p>Score: {{players[1][1]}}</p>
+            <p>Score: {{ players[1][1] }}</p>
         </div>
         <div class="col-4 player-card">
             <!-- Empty column for spacing -->
@@ -102,7 +107,7 @@
     <div class="row">
         <div class="col-4 player-card">
             <h2>Third Place</h2>
-            <p>{{ players[2][0]}}</p>
+            <p>{{ players[2][0] }}</p>
             <p>Score: {{ players[2][1] }}</p>
         </div>
         <div class="col-4 player-card">
@@ -123,32 +128,32 @@
             <div class="silver-rectangle"></div>
         </div>
     </div>
-{% if players|length > 3 %}
-    <h2 class="text-center">Other Players</h2>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Rank</th>
-            <th>Player</th>
-            <th>Score</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- Add a row for each player, ignoring the first three the players are in players as tuples -->
-        {% for player in players[3:] %}
-        <tr>
-            <td>{{player[2]}}</td>
-            <td>{{player[0]}}</td>
-            <td>{{player[1]}}</td>
-        </tr>
-        {% endfor %}
-        <!-- Add more rows for additional players -->
-        </tbody>
-    </table>
+    {% if players|length > 3 %}
+        <h2 class="text-center">Other Players</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Player</th>
+                <th>Score</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Add a row for each player, ignoring the first three the players are in players as tuples -->
+            {% for player in players[3:] %}
+                <tr>
+                    <td>{{ player[2] }}</td>
+                    <td>{{ player[0] }}</td>
+                    <td>{{ player[1] }}</td>
+                </tr>
+            {% endfor %}
+            <!-- Add more rows for additional players -->
+            </tbody>
+        </table>
     {% endif %}
-    <!-- Add a button to return to the game -->
-    <div class="text-center">
-        <a class="btn btn-info">Next round</a>
+    <!-- Add a button to return to the game with top padding-->
+    <div class="text-center" style="padding-top: 20px">
+        <a class="btn btn-info" id="next-round" onclick="nextRound()">Next round</a>
     </div>
 </div>
 
@@ -156,7 +161,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+
 <script>
+    //connect to the websocket
+    var socket = io.connect();
+
     //set the height of the gold rectangle to be the same as the height of its parent
     $(document).ready(function () {
         $(".gold-rectangle").height($(".gold-rectangle").parent().parent().height());
@@ -164,6 +174,31 @@
         console.log(this);
     });
 
+    socket.on('startRound', function () {
+        window.location.href = "/draw";
+    })
+
+    // Access the cookie values using a helper function
+    function getCookieValue(name) {
+        const cookies = document.cookie.split('; ');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].split('=');
+            if (cookie[0] === name) {
+                return cookie[1];
+            }
+        }
+        return '';
+    }
+
+    function nextRound() {
+        console.log("next round")
+        socket.emit('next_round', {room: getCookieValue('code'), player: getCookieValue('player')});
+
+        //change the text of the button to say "waiting for other players"
+        $("#next-round").text("Waiting for other players");
+        //disable the button
+        document.getElementById("next-round").disabled = true;
+    }
 
 </script>
 </body>

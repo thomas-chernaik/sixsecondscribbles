@@ -4,9 +4,11 @@ import time
 
 
 class Game:
-    def __init__(self, code, guess_time, socket):
+    def __init__(self, code, socket):
         self.socket = socket
-        self.cards = {}
+        self.cards = {0: [["items beginning with c",
+                           ["cucumber", "carrot", "candy", "candle", "cactus", "cage", "cake", "cars", "cow",
+                            "court"]]] * 10}
         self.usedCards = []
         self.players = []
         self.code = code
@@ -19,10 +21,11 @@ class Game:
         self.roundStartTime = 0
         self.drawLeadTime = 5
         self.drawTime = 60
-        self.guessTime = guess_time
         self.displayLeaderboardTime = 20
         self.startVotes = 0
         self.numToPass = 0
+        self.numScored = 0
+        self.players_cards = {}
 
     def add_player(self, player):
         while self.locked:
@@ -32,7 +35,7 @@ class Game:
         self.scores[player] = 0
         self.locked = False
 
-    def get_card(self):
+    def get_card(self, player):
         while self.locked:
             time.sleep(1)
         self.locked = True
@@ -42,15 +45,30 @@ class Game:
         while card in self.usedCards:
             card = random.choice(self.cards[self.current_difficulty])
         self.usedCards.append(card)
+        self.players_cards[player] = card[0]
         self.locked = False
         return card
+
+    def get_players_card(self, player):
+        while self.locked:
+            time.sleep(1)
+        self.locked = True
+        playerNum = self.players.index(player) + self.numToPass
+        if playerNum >= len(self.players):
+            playerNum -= len(self.players)
+        card = self.players_cards[self.players[playerNum]]
+        self.locked = False
+        return self.players[playerNum]  # return card
 
     def add_score(self, player1, player2, score):
         while self.locked:
             time.sleep(1)
         self.locked = True
+        self.numScored += 1
         self.scores[player1] += score
         self.scores[player2] += score
+        if self.numScored == len(self.players):
+            self.socket.emit('displayLeaderboard', self.code)
         self.locked = False
 
     def get_leaderboard(self):
@@ -107,7 +125,10 @@ class Game:
         self.numToPass %= len(self.players)
         if self.numToPass == 0:
             self.numToPass = 1
+        self.numScored = 0
         self.locked = False
+
+    """
 
     def getCurrentSection(self):
         while self.locked:
@@ -151,6 +172,8 @@ class Game:
             self.start_round()
             self.locked = False
             return self.drawLeadTime - (time.time() - self.roundStartTime)
+            
+            """
 
     def vote_to_start(self, player):
         while self.locked:
@@ -158,9 +181,10 @@ class Game:
         self.locked = True
         self.startVotes += 1
         if self.startVotes > len(self.players) / 2:  # and len(self.players) > 3:
+            self.startVotes = 0
             self.locked = False
             self.start_round()
-            self.socket.emit("startRound", room=self.code)
+            self.socket.emit("startRound", self.code)
         self.locked = False
 
     def getPlayers(self):
@@ -174,6 +198,15 @@ class Game:
         otherPlayer %= len(self.players)
         self.locked = False
         self.add_score(player, self.players[otherPlayer], score)
+
+    def get_other_player_name(self, player):
+        while self.locked:
+            time.sleep(1)
+        self.locked = True
+        otherPlayer = self.players.index(player) + self.numToPass
+        otherPlayer %= len(self.players)
+        self.locked = False
+        return self.players[otherPlayer]
 
     @staticmethod
     def generateCode():

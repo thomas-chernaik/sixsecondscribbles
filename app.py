@@ -26,7 +26,7 @@ def main_page():  # put application's code here
 
 @app.route('/card')
 def card():
-    return render_template('card.html')
+    return render_template('card.html', card=app.config['GAMES'][request.cookies['code']].get_card(request.cookies['player']))
 
 @app.route('/draw')
 def draw():
@@ -39,7 +39,7 @@ def create_game():
         code = Game.generateCode()
         while code in app.config['GAMES']:
             code = Game.generateCode()
-        app.config['GAMES'][code] = Game(code, request.form['guessTime'], socketio)
+        app.config['GAMES'][code] = Game(code, socketio)
         app.config['GAMES'][code].add_player(request.form['player'])
         return code
     #if get
@@ -104,10 +104,23 @@ def get_image(filename):
     except Exception as e:
         return str(e)
 
+
+@app.route('/getImage/')
+def get_image_no_filename():
+    # work out the players name who we need to get the image for
+    player = request.cookies['player']
+    # get the player name from the game object
+    player_name = app.config['GAMES'][request.cookies['code']].get_other_player_name(player)
+    # unpicke the image
+    return redirect(url_for('get_image', filename=player_name))
 @app.route('/submitCard', methods=['POST'])
 def submit_card():
     app.config['GAMES'][request.cookies['code']].submit_card(request.cookies['player'], request.json['numCards'])
     return "success"
+
+@app.route('/getCardTitle')
+def get_card_title():
+    return app.config['GAMES'][request.cookies['code']].get_players_card(request.cookies['player'])
 
 @socketio.on('join')
 def handle_join(data):
@@ -130,6 +143,12 @@ def handle_vote(data):
     room = data['room']
     player = data['player']
     app.config['GAMES'][room].vote_to_start(player)
+
+@socketio.on('next_round')
+def handle_next_round(data):
+    print('next_round')
+    room = data['room']
+    app.config['GAMES'][room].vote_to_start(data['player'])
 
 if __name__ == '__main__':
     socketio.run(app)
