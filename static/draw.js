@@ -14,12 +14,15 @@ window.addEventListener('load', function () {
     function resizeCanvas() {
         const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
         const screenWidth = window.innerWidth;
-        var padding = screenWidth * 0.05;
+        var padding = screenWidth * 0.01;
         const canvasSizeW = screenWidth - 2 * padding;
         const screenHeight = window.innerHeight;
         var padding = screenHeight * 0.25;
         const canvasSizeH = screenHeight - 2 * padding;
-        const canvasSize = Math.min(canvasSizeH, canvasSizeW);
+        var canvasSize = Math.min(canvasSizeH, canvasSizeW);
+        if (screenHeight > screenWidth) {
+            canvasSize = canvasSizeW;
+        }
 
         canvas.width = canvasSize;
         canvas.height = canvasSize;
@@ -55,8 +58,9 @@ window.addEventListener('load', function () {
         context.strokeStyle = colorSelector.value;
         if (e.type.startsWith('touch')) {
             var touch = e.touches[0];
-            offsetX = touch.pageX - canvas.offsetLeft;
-            offsetY = touch.pageY - canvas.offsetTop;
+            var rect = canvas.getBoundingClientRect();
+            offsetX = touch.clientX - rect.left;
+            offsetY = touch.clientY - rect.top;
         } else {
             offsetX = e.offsetX;
             offsetY = e.offsetY;
@@ -70,6 +74,12 @@ window.addEventListener('load', function () {
         lastY = offsetY;
     }
 
+    // Prevent scrolling while touching the canvas
+    document.addEventListener('touchmove', function (e) {
+        if (e.target === canvas) {
+            e.preventDefault();
+        }
+    }, {passive: false});
 // Event listeners for touchscreen devices
     canvas.addEventListener('touchstart', (e) => {
         isDrawing = true;
