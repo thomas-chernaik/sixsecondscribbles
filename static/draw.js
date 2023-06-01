@@ -53,16 +53,34 @@ window.addEventListener('load', function () {
         context.lineWidth = penSize.value;
         context.lineCap = 'round';
         context.strokeStyle = colorSelector.value;
-
+        if (e.type.startsWith('touch')) {
+            var touch = e.touches[0];
+            offsetX = touch.pageX - canvas.offsetLeft;
+            offsetY = touch.pageY - canvas.offsetTop;
+        } else {
+            offsetX = e.offsetX;
+            offsetY = e.offsetY;
+        }
         context.beginPath();
         context.moveTo(lastX, lastY);
-        context.lineTo(e.offsetX, e.offsetY);
+        context.lineTo(offsetX, offsetY);
         context.stroke();
 
-        lastX = e.offsetX;
-        lastY = e.offsetY;
+        lastX = offsetX;
+        lastY = offsetY;
     }
 
+// Event listeners for touchscreen devices
+    canvas.addEventListener('touchstart', (e) => {
+        isDrawing = true;
+        var touch = e.touches[0];
+        lastX = touch.pageX - canvas.offsetLeft;
+        lastY = touch.pageY - canvas.offsetTop;
+    });
+
+    canvas.addEventListener('touchmove', draw);
+    canvas.addEventListener('touchend', () => (isDrawing = false));
+    canvas.addEventListener('touchcancel', () => (isDrawing = false));
 // Event listeners
     canvas.addEventListener('mousedown', (e) => {
         isDrawing = true;
