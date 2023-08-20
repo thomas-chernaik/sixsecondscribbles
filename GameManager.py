@@ -6,9 +6,7 @@ import time
 class Game:
     def __init__(self, code, socket):
         self.socket = socket
-        self.cards = {0: [["items beginning with c",
-                           ["cucumber", "carrot", "candy", "candle", "cactus", "cage", "cake", "cars", "cow",
-                            "court"]]] * 10}
+        self.cards = self.get_all_cards()
         self.usedCards = []
         self.players = []
         self.code = code
@@ -16,7 +14,7 @@ class Game:
         self.current_round = 0
         self.scores = {}
         self.locked = False
-        self.current_difficulty = 0
+        self.current_difficulty = 1
         self.difficulty_votes = {}
         self.roundStartTime = 0
         self.drawLeadTime = 5
@@ -27,6 +25,29 @@ class Game:
         self.numScored = 0
         self.players_cards = {}
         self.startVotesPlayers = set()
+
+    def get_all_cards(self):
+        cards = {}
+        with open("cards.txt", "r") as cards_file:
+            for card in cards_file.readlines():
+                #strip the newline character
+                card = card.strip()
+                #get the card difficulty
+                card_difficulty = card.split(',')[1]
+                #map the card difficulty to an index
+                if card_difficulty == 'normal':
+                    card_difficulty = 0
+                elif card_difficulty == 'difficult':
+                    card_difficulty = 1
+                else:
+                    card_difficulty = 2
+                #add the card to the dictionary, without the difficulty
+                if card_difficulty in cards:
+                    cards[card_difficulty].append(card.split(',')[0:1] + card.split(',')[2:])
+                else:
+                    cards[card_difficulty] = [card.split(',')[0:1] + card.split(',')[2:]]
+        return cards
+
 
     def add_player(self, player):
         while self.locked:
@@ -104,7 +125,7 @@ class Game:
             if self.difficulty_votes[player] not in difficulties:
                 difficulties[self.difficulty_votes[player]] = 0
             difficulties[self.difficulty_votes[player]] += 1
-        max_difficulty = 0
+        max_difficulty = 1
         max_votes = 0
         for difficulty in difficulties:
             if difficulties[difficulty] > max_votes:
@@ -133,8 +154,8 @@ class Game:
         while self.locked:
             time.sleep(1)
         self.locked = True
-        if player not in self.start_votes:
-            self.start_votes.add(player)
+        if player not in self.startVotesPlayers:
+            self.startVotesPlayers.add(player)
         else:
             self.locked = False
             return # already voted

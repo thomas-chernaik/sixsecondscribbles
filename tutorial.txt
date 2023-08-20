@@ -1,0 +1,17 @@
+Six second scribbles is a card game you play with friends.
+It is important that you can talk to your friends while you play, so you'll need to be in the same room, or on call.
+The winner of the game has the most points when the game ends.
+The game is split up into rounds, and you can play as many rounds as you want.
+Each round has a difficulty, which you choose before you play.
+The rounds consist of two phases.
+In the first phase, each player will recieve ten prompts to draw, and a category which these prompts belong to.
+They will then have 60 seconds to draw as many of these prompts as they can.
+The second phase will begin immediately after the first phase ends.
+You will be shown the drawings of one other player, and their username.
+You have to guess as many of their prompts as you can from their drawing.
+You will both be awarded points for each correct guess.
+You log the correct guess by clicking on each prompt that the guesser got right.
+In each round, you will be shown a different player's drawings.
+After everyone has submitted their guesses, the round will end.
+The leaderboard will be shown, and the difficulty for the next round can be voted on.
+The game will end when you decide to stop playing.

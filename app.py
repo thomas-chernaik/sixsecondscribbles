@@ -7,6 +7,7 @@ from flask import make_response
 from flask import send_file
 from io import BytesIO
 import base64
+import json
 
 from flask_socketio import SocketIO, emit, join_room
 
@@ -23,6 +24,10 @@ socketio = SocketIO(app)
 @app.route('/')
 def main_page():  # put application's code here
     return render_template('home.html')
+
+@app.route('/tutorial')
+def tutorial():
+    return render_template('tutorial.html')
 
 @app.route('/card')
 def card():
@@ -122,6 +127,20 @@ def submit_card():
 def get_card_title():
     return app.config['GAMES'][request.cookies['code']].get_players_card(request.cookies['player'])
 
+@app.route('/uploadCard', methods=['POST', 'GET'])
+def upload_card():
+    if request.method == 'POST':
+        # parse the card title, and ten card elements
+        card_title = request.json['cardTitle']
+        card_elements = request.json['cardElements']
+        card_difficulty = request.json['cardDifficulty']
+        # add the card to the cards file as comma separated values
+        with open("cards.txt", "a") as cards_file:
+            cards_file.write(card_title + "," + card_difficulty + "," + ",".join(card_elements) + "\n")
+        return "success"
+    return render_template('uploadCards.html', titles=getTitles())
+
+
 @socketio.on('join')
 def handle_join(data):
     room = data['room']
@@ -162,6 +181,12 @@ def handle_medium(data):
 @socketio.on('impossible')
 def handle_hard(data):
     app.config['GAMES'][data['room']].set_difficulty(data['player'], 2)
+
+def getTitles():
+    with open("cards.txt", "r") as cards_file:
+        cards = cards_file.readlines()
+        titles = list([card.split(",")[0]+card.split(",")[1] for card in cards])
+        return titles
 
 if __name__ == '__main__':
     socketio.run(app)

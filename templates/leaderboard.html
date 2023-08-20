@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap">
+    <title>Leaderboard</title>
     <style>
         body {
             font-family: 'Quicksand', sans-serif;
@@ -207,7 +208,7 @@
         document.getElementById("next-round").disabled = true;
     }
 
-    function easy(){
+    function easy() {
         console.log("easy")
         socket.emit('easy', {room: getCookieValue('code'), player: getCookieValue('player')});
         //disable the buttons
@@ -216,7 +217,7 @@
         document.getElementById("impossible").disabled = true;
     }
 
-    function difficult(){
+    function difficult() {
         console.log("difficult")
         socket.emit('difficult', {room: getCookieValue('code'), player: getCookieValue('player')});
         //disable the buttons
@@ -225,7 +226,7 @@
         document.getElementById("impossible").disabled = true;
     }
 
-    function impossible(){
+    function impossible() {
         console.log("impossible")
         socket.emit('impossible', {room: getCookieValue('code'), player: getCookieValue('player')});
         //disable the buttons

@@ -1,0 +1,108 @@
+Things beginning with F,difficult,Foot,Flower,Face,Fish,Fire,Football,Frame,Friend,Family,Field
+Things you take camping,difficult,Tent,Torch,Toilet roll,Matches,Sleeping bag,First aid kit,Marshmallows,Compass,Guitar,Firewood
+Colours,difficult,Orange,Green,Blue,Yellow,Red,Purple,Black,Brown,White,Grey
+Things that smell good,difficult,Flowers,Candles,Coffee,Cut grass,Fresh bread,Perfume,Rain,Babies,Sea air,Fresh laundry
+Winter sports,difficult,Skiiing,Ice skating,Snowboarding,Ice hockey,Ski jumping,Sledging,Curling,Bobsleight,Dog sledding,Ice climbing
+Stick things,difficult,Stick,Stick insect,Plaster,Honey,Glue,Snot,Sticky tape,Candy floss,Maple syrup,Bubble gum
+Things that are square,difficult,Sandwich,Post it note,Waffle,Chessboard,Pizza box,Cushion,Light switch,Ice cube,Dice,Window
+Food that is yellow,difficult,Pineapple,Lemon,Cheese,Sweetcorn,Egg yolk,Mustard,Mango,Macaroni cheese,Butter,Banana
+Things outside,normal,Mountain,Hill,Forest,Lake,Pond,River,Cliff,Jungle,Iceberg,Swamp
+Sea creatures,normal,Jellyfish,Starfish,Crab,Shark,Turtle,Whale,Octopus,Lobster,Dolphin,Seahorse
+Food,normal,Egg,Cheese,Noodles,Soup,Crisps,Popcorn,Sandwich,Burger,Chips,Rice
+Sweet treats,normal,Ice cream,Chocolate,Doughnut,Ice lolly,Jelly,Cake,Sweets,Jam,Biscuit,Apple pie
+Wintery things,normal,Snowman,Mittens,Snowflake,Holly,Ice skating,Snowballs,Hot chocolate,Sledging,Mistletoe,Christmas jumper
+Vegetables,normal,Carrot,Mushroom,Pumpkin,Sweetcorn,Peas,Potato,Onion,Broccoli,Aubergine,Asparagus
+Musical instruments,normal,Guitar,Drum,Triangle,Tambourine,Piano,Violin,Saxophone,Recorder,Flute,Harp
+Fruit,normal,Banana,Cherry,Apple,Pineapple,Strawberry,Lemon,Pear,Grapes,Orange,Raspberry
+Summery things,normal,Sun,Sunglasses,Flip flops,Swimsuit,Sunhat,Ice lolly,Kite,Suncream,Snorkel,Deckchair
+Toys,normal,Skipping rope,Hula hoop,Lego,Yo-yo,Train set,Tea set,Frisbee,Doll,Marbles,Play-doh
+Body parts,normal,Heart,Hand,Foot,Eye,Ear,Tooth,Eyebrow,Tongue,Toenail,Belly button
+Things in space,normal,Moon,Shooting star,Earth,Saturn,Astronaut,Comet,Satellite,Constellation,Asteroid,Black hole
+Things at home,normal,Window,Washing machine,Shower,Bath,Lightbulb,Door,TV,Curtains,Light switch,Mirror
+Birds,normal,Penguin,Chicken,Flamingo,Swan,Duck,Robin,Peacock,Owl,Turkey,Ostrich
+Things beginning with r,normal,Rose,Ring,Rainbow,Rocket,Roller skate,Raisins,Robot,Rock,Rope,Rollercoaster
+Hot things,normal,Sun,Fire,Volcano,Chilli,Hot chocolate,Radiator,Hot water bottle,The desert,Hair dryer,Curry
+Creepy crawlies,normal,Butterfly,Bee,Worm,Snail,Ladybird,Spider,Ant,Caterpillar,Slug,Dragonfly
+Things you use,normal,Umbrella,Key,Toothbrush,Scissors,Bucket,Pencil,Ruler,Torch,Mop,Hairbrush
+Pets,normal,Rabbit,Cat,Snake,Dog,Mouse,Horse,Hamster,Guinea pig,Rat,Parrot
+Things beginning with M,normal,Man,Moon,Moth,Medal,Mountain,Maggot,Monster,Muffin,Millipede,Magnet
+Weather,normal,Sun,Cloud,Rain,Snow,Lightning,Rainbow,Wind,Tornado,Fog,Ice
+Animals,difficult,Fox,Squirrel,Lizard,Sloth,Goat,Tortoise,Badger,Mole,Llama,Anteater
+Things people are scared of,difficult,Spiders,Snakes,Clowns,Dogs,Lightning,Needles,Heights,The dentist,The dark,Crowds
+Things that are pink or purple,difficult,Pig,Plum,Flamingo,Lavender,Candy floss,Grapes,Pink grapefruit,Red onion,Cherry blossom,Red cabbage
+Sea creatures,difficult,Squid,Seal,Pufferfish,Eel,Swordfish,Stingray,Flying fish,Mussel,Sea urchin,Catfish
+Birds,difficult,Woodpecker,Seagull,Eagle,Dove,Goose,Magpie,Hummingbird,Stork,Vulture,Pigeon
+Celebrations,difficult,Christmas,Easter,Halloween,Birthday,Wedding,Mother's day,Father's day,Diwali,Thanksgiving,Day of the dead
+Pizza toppings,difficult,Tomato,Cheese,Pepperoni,Mushrooms,Olives,Peppers,Anchovies,Basil,Rocket,Ham
+Thigns that have stripes,difficult,Zebra,Lighthouse,Socks,Tiger,Candy cane,Bee,Flag,Barcode,Zebra crossing,Skunk
+Things beginning with O,difficult,Oar,Oven,Olives,Ox,Oil,Otter,Orchid,Omelette,Oboe,Oregano
+Things found on faces,difficult,Beard,Moustache,Wrinkles,Spots,Scar,Mole,Black eye,Stubble,Beauty spot,Wart
+Mythical creatures,difficult,Unicorn,Mermaid,Dairy,Dragon,Giant,Loch ness monster,Werewolf,Medusa,Pegasus,Yeti
+Things that are blue or orange,difficult,Carrot,Blueberry,Pumpkin,Whale,Fox,Sky,Jeans,Ocean,Basketball,Traffic cone
+Things beginning with D,difficult,Diamond,Drum,Deer,Duck,Dolphin,Dalmatian,Dad,Daughter,Daisy,Daffodil
+Extreme sports,difficult,Bungee jumoing,Skydiving,Skateboarding,Surfing,Snowboarding,Mountain biking,White water rafting,Abseiling,Freediving,Freerunning
+Trees and plants,difficult,Apple tree,Christmas tree,Clover,Bamboo,Cactus,Oak tree,Ivy,Seaweed,Fern,Maple tree
+Food,difficult,Croissant,Hot dog,Sushi,Kebab,Pie,Toast,Crumpet,Nachos,Burrito,Coleslaw
+Hobbies,difficult,Music,Painting,Gardening,Baking,Football,Reading,Swimming,Photography,Writing,Cinema
+Things beginning with A,difficult,Acorn,Alligator,Axe,Avocado,Angelfish,Alien,Astronaut,Apple pie,Antelope,Alpaca
+Things on the beach,difficult,Shell,Sand,Umbrella,Towel,Beach ball,Sandcastle,Seagull,Seaweed,Driftwood,Lifeguard
+Musical intruments,difficult,Trombone,Harmonica,Xylophone,Bagpipes,Clarinet,Didgeridoo,Accordion,Pan pipes,Cello,Maracas
+Holiday things,difficult,Sunglasses,Sunhat,Suncream,Suitcase,Snorkel,Toothbrush,Passport,Guidebook,Postcard,Map
+Things begnning with T,difficult,Toast,Table,Tadpole,Tangerine,Treasure,Taratula,Toad,Turnip,Truffle,Tightrope
+Professions,difficult,Doctor,Chef,Florist,Dentist,Hairdresser,Painter,Pilot,Photographer,Baker,Scientist
+Things that are black or white,difficult,Sheep,Bat,Bone,Cloud,Tyre,Snow,Milk,Fly,Squid ink,Sugar
+Ice cream flavours,difficult,Chocolate,Strawberry,Vanilla,Banana,Pistachio,Mint choc chip,Cookies and cream,Rum and raisin,Birthday cake,Salted caramel
+Drinks,difficult,Water,Wine,Coffee,Tea,Juice,Champagne,Beer,Milk,Hot chocolate,Lemonade
+Fruit,difficult,Watermelon,Peach,Blueberry,Kiwi,Mango,Plum,Fig,Pomegranate,Passion fruit,Lychee
+Things beginning with M,difficult,Map,Mosquito,Mask,Maze,Mint,Medicine,Marmalade,Meringue,Moss,Mud
+Vegetables,difficult,Spinach,Parsnip,Sweet potato,Leek,Lettuce,Brussels sprouts,Celery,Kale,Fennel,Artichoke
+Places you can live,difficult,House,Treehouse,Igloo,Houseboat,Farm,Castle,Campervan,Palace,Cabin,Yurt
+Food that is green,difficult,Spinach,Lime,Cucumber,Kiwi,Apple,Cabbage,Celery,Okra,Kale,Peas
+Things that are red or green,difficult,Grass,Heart,Leaf,Frog,Ladybird,Avocado,Rose,Lizard,Broccoli,Fire engine
+Body parts,difficult,Brain,Lungs,Nipple,Ribs,Intestines,Skull,Veins,Adam's apple,Skin,Ear drum
+Things at the park,difficult,Swing,Slide,Roundabout,Seesaw,Sandpit,Playhouse,Monkey bars,Climbing fram,Paddling pool,Picnic bench
+Thigns beginning with p,difficult,Peanut,Pearl,Perfume,Prawn,Pretzel,Pine cone,Photo,Piranha,Parmesan,Panther
+Things beginning with L,difficult,Ladder,Lollipop,Lake,Lamp,Laptop,Lavender,Limpet,Laser,Lace,Lentils
+Things that are loud,difficult,Fireworks,Helicopter,Volcano,Drill,Thunder,Alarm clock,Police siren,Fire alarm,Vacuum cleaner,Hair dryer
+Insects,difficult,Wasp,Beetle,Mosquito,Grasshopper,Centipede,Stick insect,Cockroach,Firefly,Flea,Moth
+Sweet treats,difficult,Gingerbread man,Carrot cake,Mince pie,Candy cane,Chocolate brownie,Custard,Scone,Christmas pudding,Chocolate eclair,Banoffee pie
+Expensive things,difficult,Diamond,Sports car,Art,Gold,Champagne,Caviar,Yacht,Truffles,Footballer,Saffron
+Food that is red,difficult,Cherry,Tomato,Strawberry,Raspberry,Watermelon,Red pepper,Chilli,Rhubarb,Cranberry,Pomegranate
+Olympic sports,difficult,Diving,Archery,Trampoline,Javelin,Surfing,Fencing,Rowing,Weightlifting,Table tennis,Wrestling
+Animal homes,difficult,Nest,Spider web,Pond,Hive,Tree,Cave,Anthill,Field,Den,Burrow
+Things that are round,difficult,Button,Ring,Wheel,Moon,Coin,Bubble,Football,Clock,Hula hoop,Frisbee
+Things beginning with s,difficult,Seed,Skirt,Stamp,String,Skateboard,Salad,Surfboard,Swiss roll,Soy sauce,Shrimp
+Things beginning with W,difficult,Wall,Whistle,Wheelbarrow,Wardrobe,Walnut,Waffle,Waterfall,Water lily,Wallaby,Weasel
+Tourist attractions,difficult,Pyramids,Eiffel tower,Statue of liberty,Leaning tower of Pisa,Disneyland,Big Ben,Great wall of China,Taj Mahal,Sydeny opera house,Stonehenge
+Things beginning with H,difficult,Hat,Hair,Hammer,Hook,Horseshoe,Headphones,Honey,Hockey stick,Hermit crab,Honeysuckle
+Things that fly,normal,Kite,Buttefly,Bird,Aeroplane,Helicopter,Fly,Hot air balloon,Spaceship,Paper aeroplane,Flying squirrel
+African animals,impossible,Rhino,Hippo,Buffalo,Warthog,Meerkat,Porcupine,Ostrich,Hyena,Antelope,Aardvark
+Animal sayings,impossible,Raining cats and dogs,Crocodile tears,The elephant in the room,The early bird catches the worm,Curiosity killed the cat,I smell a rat,A bird in the hand...,A bull in a china shop,Cry wolf,The straw that broke the camel's back
+Things beginning with P,impossible,Paint,Pyjamas,Pitta bread,Pill,Parsley,Pepper,Pine nuts,Paper,Pavement,Pelican
+Cartoon characters,impossible,Bugs Bunny,Mickey Mouse,Donald Duck,Bart Simpson,Winne the Pooh,Peppa Pig,Popeye,Fred Flintstone,SpongeBob Squarepants,Scooby Doo
+Famous paintings,impossible,Mona Lisa,Sunflowers,The scream,The kiss,The last supper,The girl with a pearl earring,Water lillies,The starry night,American gothic,The birth of venus
+Italian food,impossible,Pizza,Spaghetti,Lasange,Risotto,Ravioli,Cannelloni,Focaccia,Calzone,Gelato,Tiramisu
+Cheese,impossible,Cheddar,Brie,Stilton,Parmesan,Mozzarella,Camembert,Halloumi,Cream cheese,Feta,Emmental
+Animated films,impossible,Pinocchio,Shrek,The lion king,The little mermaid,Aladdin,Frozen,Up,Beauty and the beast,Kung fu panda,Toy story
+Film genres,impossible,Documentary,Musical,Western,Comedy,Horror,Gangster,Sci-Fi,Action,Thriller,War
+Food,impossible,Yoghurt,Macaroni cheese,Porridge,Peanut butter,Spring rolls,Garlic bread,Guacamole,Tacos,Mashed potatoes,Stew
+Films,impossible,Jaws,Titanic,Jurassic par,Star Wars,Alien,Ghostbusters,E.T.,Lord of the Rings,Dirty dancing,Back to the Future
+Things beginning with C,impossible,Church,Crow,Cobra,Circket,Chutney,Crocus,Crackers,Confetti,Cream,Chickpeas
+Children's songs,impossible,Baa baa black sheep,Twinkle twinkle little star,The wheels on the bus,Incy wincy spider,Humpty dumpty,Row row row your boat,Baby shark,Mary had a little lamb,Old MacDonald had a farm,Five little monkeys
+Prehistoric animals,impossible,T-Rex,Crocodile,Wolly mammoth,Pterodactyl,Sabre-toothed tiger,Triceratops,Diplodocus,Stegosaurus,Cave bear,Wolly rhinoceros
+Hobbies,impossible,Birdwatching,Beekeeping,Knitting,Drawing,Dancing,Origami,Pottery,Scuba diving,Playing board games,Playing video games
+Flowers,impossible,Sunflower,Daffodil,Rose,Dandelion,Snowdrop,Daisy,Tulip,Poppy,Bluebell,Lilly
+I feel...,impossible,Anfry,Scared,Surprised,Confused,Strong,Jealous,Embarrassed,Loved,Annoyed,Excited
+Classic children's books,impossible,The very hungry caterpillar,The cat in the hat,Charlotte's web,The tale of Peter Rabbit,Charlie and the chocolate factory,The BFG,The Lion, the Witch and the Wardrobe,The secret garden,Alice's adventures in wonderland,The wind in the willows
+Tourist attractions,impossible,Buckingham palace,Empire state building,The nile,Mount everest,Notre-Dame,Grand canyon,Machu picchu,Mount Rushmore,Angel falls,Moai on easter island
+Professions,impossible,Farmer,Lifeguard,Plumber,Gardener,Optician,Surgeon,Librarian,Writer,Electrician,Actor
+Heroes and villains,impossible,Batman,Captain Hook,Superman,Cruella de Vil,Spiderman,Darth Vader,The Joker,Wonder Woman,Voldemort,Iron man
+Dogs,impossible,Dalmatian,Poodle,Greyhound,Corgi,Bulldog,Husy,Shih tzu,Cocker spaniel,Jack Russel,Chihuahua
+Sea creatures,impossible,Oyster,Coral,Clownfish,Lionfish,Sea cucumber,Narwhal,Elephant seal,Manatee,Sea lion,Plankton
+Famous books,impossible,Frankenstein,Little women,Lord of the flies,Moby dick,Dracula,The lord of the rings,War and peace,The hitchhiker's guide to the galaxy,Animal farm,One flew over the cuckoo's nest
+Moments in history,impossible,First man on the moon,Freat fire of london,The titanic sinks,Discovery of DNA,First TV broadcast,Fall of the Berlin wall,Birth of Dolly the sheep,Early man discovers fire,Invention of the internet,Battle of Hastings
+Things people say,impossible,Break a leg,Spill the beans,Time flies,On top of the world,Under the weather,A piece of cake,A needle in a haystack,It's not rocket science,Over the moon,Not my cup of tea
+Halloween costumes,normal,Ghost,Cat,Bat,Witch,Vampire,Pumpkin,Devil,Skeleton,Monster,Clown
+Things beginning with B,normal,Balloon,Button,Book,Ball,Bicycle,Blackberry,Bagel,Bear,Beans,Bag
+Things beginning with C,normal,Cup,Chair,Candle,Cake,Crayon,Castle,Coconut,Comb,Cucumber,Computer
+Animals,normal,Sheep,Pig,Cow,Giraffe,Zebra,Camel,Crocodile,Elephant,Hedgehog,Frog

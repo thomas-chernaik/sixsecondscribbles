@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bootstrap Buttons</title>
+    <title>Six second scribbles</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
@@ -28,14 +28,29 @@
             border-color: #E6B800;
             color: black;
         }
+        .btn-tutorial{
+            background-color: #62be66;
+            border-color: #acc7ad;
+            color: black;
+        }
     </style>
 </head>
 <body>
-<div class="center">
-    <div>
-        <a href="/joinGame" class="btn btn-join btn-lg mr-3">Join</a>
-        <a href="/createGame" class="btn btn-create btn-lg">Create</a>
+<div class="container d-flex flex-column justify-content-center align-items-center vh-100">
+    <div class="row mb-3">
+        <div class="col">
+            <a href="/joinGame" class="btn btn-join btn-lg mr-3">Join</a>
+        </div>
+        <div class="col">
+            <a href="/createGame" class="btn btn-create btn-lg">Create</a>
+        </div>
     </div>
+    <div class="row">
+        <div class="col">
+            <a href="/tutorial" class="btn btn-tutorial btn-lg">how to play?</a>
+        </div>
+    </div>
+</div>
 </div>
 </body>
 </html>

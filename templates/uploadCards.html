@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Card Form</title>
+</head>
+
+<body>
+<div class="container">
+    <h1>Card Form</h1>
+    <form>
+        <div class="form-group">
+            <label for="cardTitle">Card Title</label>
+            <input type="text" class="form-control" id="cardTitle" placeholder="Enter card title" required>
+        </div>
+        <div class="form-group">
+            <label for="cardDifficulty">Card Difficulty</label>
+            <select class="form-control" id="cardDifficulty">
+                <option value="normal">Easy</option>
+                <option value="difficult" >Tricky</option>
+                <option selected="selected" value="impossible">Almost Impossible</option>
+            </select>
+        </div>
+        <h2>Card Items</h2>
+        <hr>
+        <div class="form-group">
+            <label for="cardItem1">Item 1</label>
+            <input type="text" class="form-control" id="cardItem1" placeholder="Enter item 1" required>
+        </div>
+        <div class="form-group">
+            <label for="cardItem2">Item 2</label>
+            <input type="text" class="form-control" id="cardItem2" placeholder="Enter item 2" required>
+        </div>
+        <div class="form-group">
+            <label for="cardItem3">Item 3</label>
+            <input type="text" class="form-control" id="cardItem3" placeholder="Enter item 3" required>
+        </div>
+        <div class="form-group">
+            <label for="cardItem4">Item 4</label>
+            <input type="text" class="form-control" id="cardItem4" placeholder="Enter item 4" required>
+        </div>
+        <div class="form-group">
+            <label for="cardItem5">Item 5</label>
+            <input type="text" class="form-control" id="cardItem5" placeholder="Enter item 5" required>
+        </div>
+        <div class="form-group">
+            <label for="cardItem6">Item 6</label>
+            <input type="text" class="form-control" id="cardItem6" placeholder="Enter item 6" required>
+        </div>
+        <div class="form-group">
+            <label for="cardItem7">Item 7</label>
+            <input type="text" class="form-control" id="cardItem7" placeholder="Enter item 7" required>
+        </div>
+        <div class="form-group">
+            <label for="cardItem8">Item 8</label>
+            <input type="text" class="form-control" id="cardItem8" placeholder="Enter item 8" required>
+        </div>
+        <div class="form-group">
+            <label for="cardItem9">Item 9</label>
+            <input type="text" class="form-control" id="cardItem9" placeholder="Enter item 9" required>
+        </div>
+        <div class="form-group">
+            <label for="cardItem10">Item 10</label>
+            <input type="text" class="form-control" id="cardItem10" placeholder="Enter item 10" required>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="submitCardForm()">Submit</button>
+    </form>
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function submitCardForm() {
+        // Collect form data
+        const cardTitle = document.getElementById('cardTitle').value;
+        const cardDifficulty = document.getElementById('cardDifficulty').value;
+        const cardItems = [];
+        for (let i = 1; i <= 10; i++) {
+            const cardItem = document.getElementById('cardItem' + i).value;
+            cardItems.push(cardItem);
+        }
+
+        // Create JSON object
+        const cardData = {
+            cardTitle: cardTitle,
+            cardDifficulty: cardDifficulty,
+            cardElements: cardItems
+        };
+
+        // Send data to the server
+        fetch('/uploadCard', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(cardData)
+        })
+            .then(response => response.text())
+            .then(data => {
+                // Handle the server response
+                console.log(data);
+                // clear the form
+                document.getElementById('cardTitle').value = '';
+                for (let i = 1; i <= 10; i++) {
+                    document.getElementById('cardItem' + i).value = '';
+                }
+
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+    //autocapiatlize the first word in any field
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    var inputs = document.getElementsByTagName('input');
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].addEventListener('keyup', function (e) {
+            this.value = capitalizeFirstLetter(this.value);
+        }, false);
+    }
+
+    //get all the existing titles from cards.txt
+    var titles = {{ titles| safe }};
+
+    //check if the title is already in use (appended by the difficulty selected)
+    function checkTitle() {
+        var title = document.getElementById('cardTitle').value;
+        if (titles.includes(title+document.getElementById('cardDifficulty').value)) {
+            alert("This card has already been typed!");
+            document.getElementById('cardTitle').value = '';
+        }
+    }
+    //set an event listener on the title field for keyup
+    document.getElementById('cardTitle').addEventListener('keyup', checkTitle);
+    //set an event listener on the difficulty field for change
+    document.getElementById('cardDifficulty').addEventListener('change', checkTitle);
+
+
+</script>
+</body>
+
+</html>
