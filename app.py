@@ -187,4 +187,6 @@ def getTitles():
         return titles
 
 if __name__ == '__main__':
+    print("Starting server...")
+    print("========================================================================")
     socketio.run(app)
