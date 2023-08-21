@@ -39,7 +39,15 @@ jobs:
           path: |
             . 
             !venv/
+      - name: Configure deployment and runtime settings on the webapp
+        run: |
+          az configure --defaults ${{ env.RESOURCE_GROUP }}
+          az webapp config appsettings --name ${{ env.WEBAPP_NAME }} --settings \
+              SCM_DO_BUILD_DURING_DEPLOYMENT=true \
+              FLASK_ENV=production
 
+          az webapp config set --name ${{ env.WEBAPP_NAME }} \
+              --startup-file "gunicorn --bind=0.0.0.0 --timeout 600 app:app"
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -61,4 +69,3 @@ jobs:
           app-name: 'pentatonicbackend'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_409F4775521A49BA9409AAD955081555 }}
-          startup-command: "venv/bin/gunicorn -c gunicorn_config.py app:app"
