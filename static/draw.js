@@ -198,7 +198,7 @@ function getCardTitle() {
             console.log(data); // Log the response data
             var title = document.createElement("h4");
             title.style.textAlign = "center";
-            title.innerText = data; // Set the response data as the title text
+            title.innerText = "This is " + data + "'s drawing"; // Set the response data as the title text
             document.body.prepend(title);
         })
         .catch(error => {
