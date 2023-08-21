@@ -14,7 +14,7 @@ class Game:
         self.current_round = 0
         self.scores = {}
         self.locked = False
-        self.current_difficulty = 1
+        self.current_difficulty = 0
         self.difficulty_votes = {}
         self.roundStartTime = 0
         self.drawLeadTime = 5
@@ -160,7 +160,7 @@ class Game:
             self.locked = False
             return # already voted
         self.startVotes += 1
-        if self.startVotes > len(self.players) / 2:  # and len(self.players) > 3:
+        if self.startVotes > len(self.players) / 2 and len(self.players) > 3:
             self.startVotes = 0
             self.locked = False
             self.start_round()

@@ -61,4 +61,4 @@ jobs:
           app-name: 'pentatonicbackend'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_409F4775521A49BA9409AAD955081555 }}
-          startup-command: "venv/bin/gunicorn -c gunicorn_config.py your_app_module:app"
+          startup-command: "venv/bin/gunicorn -c gunicorn_config.py app:app"
