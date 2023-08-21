@@ -17,7 +17,7 @@ app.config['GAMES'] = {}
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = 'your-secret-key'
 app.config['pickler'] = BadlyPreservedPickles()
-socketio = SocketIO(app, async_mode='eventlet')
+socketio = SocketIO(app, async_mode='gevent')
 
 @app.route('/')
 def main_page():  # put application's code here
