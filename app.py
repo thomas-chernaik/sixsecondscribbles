@@ -3,11 +3,9 @@ from flask import render_template
 from flask import request
 from flask import redirect
 from flask import url_for
-from flask import make_response
 from flask import send_file
 from io import BytesIO
 import base64
-import json
 
 from flask_socketio import SocketIO, emit, join_room
 
@@ -94,7 +92,7 @@ def get_image(filename):
     # Decode the base64-encoded image data
     try:
         image_data = base64.b64decode(encoded_image_data)
-    except (TypeError, binascii.Error):
+    except (TypeError):
         return "Invalid image data"
 
     # Serve the image using Flask's send_file function
