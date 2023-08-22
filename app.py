@@ -1,6 +1,6 @@
 from gevent import monkey
 monkey.patch_all()
-
+import os
 from flask import Flask
 from flask import render_template
 from flask import request
@@ -190,4 +190,5 @@ def getTitles():
 if __name__ == '__main__':
     print("Starting server...")
     print("========================================================================")
-    socketio.run(app, host='0.0.0.0', port=8000, debug=True)
+    port = os.environ.get("PORT", 5000)  # Default to 5000 if PORT environment variable is not set
+    socketio.run(app, host='0.0.0.0', port=port, debug=True)
