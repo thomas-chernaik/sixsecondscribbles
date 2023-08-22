@@ -1,3 +1,6 @@
+from gevent import monkey
+monkey.patch_all()
+
 from flask import Flask
 from flask import render_template
 from flask import request
@@ -17,7 +20,7 @@ app.config['GAMES'] = {}
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = 'your-secret-key'
 app.config['pickler'] = BadlyPreservedPickles()
-socketio = SocketIO(app, async_mode='gevent')
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 @app.route('/')
 def main_page():  # put application's code here
@@ -146,9 +149,7 @@ def handle_join(data):
     join_room(room)
     print('Client joined room:', room)
     emit('player_joined', {'player': app.config['GAMES'][data['room']].getPlayers()}, room=data['room'])
-@socketio.on('connect')
-def handle_connect():
-    print('Client connected')
+
 
 @socketio.on('disconnect')
 def handle_disconnect():
@@ -170,15 +171,15 @@ def handle_next_round(data):
 
 @socketio.on('easy')
 def handle_easy(data):
-    app.config['GAMES'][data['room']].set_difficulty(data['player'], 0)
+    app.config['GAMES'][data['room']].vote_on_difficulty(data['player'], 0)
 
 @socketio.on('difficult')
 def handle_medium(data):
-    app.config['GAMES'][data['room']].set_difficulty(data['player'], 1)
+    app.config['GAMES'][data['room']].vote_on_difficulty(data['player'], 1)
 
 @socketio.on('impossible')
 def handle_hard(data):
-    app.config['GAMES'][data['room']].set_difficulty(data['player'], 2)
+    app.config['GAMES'][data['room']].vote_on_difficulty(data['player'], 2)
 
 def getTitles():
     with open("cards.txt", "r") as cards_file:
@@ -189,4 +190,4 @@ def getTitles():
 if __name__ == '__main__':
     print("Starting server...")
     print("========================================================================")
-    socketio.run(app)
+    socketio.run(app, host='0.0.0.0', port=8000, debug=True)

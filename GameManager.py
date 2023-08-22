@@ -125,7 +125,7 @@ class Game:
             if self.difficulty_votes[player] not in difficulties:
                 difficulties[self.difficulty_votes[player]] = 0
             difficulties[self.difficulty_votes[player]] += 1
-        max_difficulty = 1
+        max_difficulty = 0
         max_votes = 0
         for difficulty in difficulties:
             if difficulties[difficulty] > max_votes:
@@ -160,10 +160,12 @@ class Game:
             self.locked = False
             return # already voted
         self.startVotes += 1
-        if self.startVotes > len(self.players) / 2 and len(self.players) > 3:
+        if self.startVotes > len(self.players) / 2 and len(self.players) >= 3:
+            self.startVotesPlayers = set()
             self.startVotes = 0
             self.locked = False
             self.start_round()
+            print("hi")
             self.socket.emit("startRound", self.code)
         self.locked = False
 
@@ -190,4 +192,4 @@ class Game:
 
     @staticmethod
     def generateCode():
-        return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(4))
+        return ''.join(random.choice(string.ascii_uppercase + "123456789") for _ in range(4))
