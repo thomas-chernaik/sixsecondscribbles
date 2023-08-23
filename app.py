@@ -80,7 +80,7 @@ def bad_code():
 def upload_image():
     file = request.json['image']
     to_pickle = (file, request.headers["card-name"])
-    filename = app.config['pickler'].pickle(to_pickle, request.cookies["player"], 600)
+    filename = app.config['pickler'].pickle(to_pickle, request.cookies["player"], 60)
     return filename
 
 @app.route('/getImage/<filename>')
@@ -191,4 +191,5 @@ if __name__ == '__main__':
     print("Starting server...")
     print("========================================================================")
     port = os.environ.get("PORT", 5000)  # Default to 5000 if PORT environment variable is not set
+    print(f"port: {port}")
     socketio.run(app, host='0.0.0.0', port=port, debug=True)
