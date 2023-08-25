@@ -160,8 +160,25 @@ document.addEventListener('keydown', function (event) {
     }
 });
 
+// Access the cookie values using a helper function
+function getCookieValue(name) {
+    const cookies = document.cookie.split('; ');
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].split('=');
+        if (cookie[0] === name) {
+            return cookie[1];
+        }
+    }
+    return '';
+}
+
 //count down timer from 60 to 0
-var timeleft = 5;
+var timeleft = 59;
+socket.emit('get_time', {room: getCookieValue('code'), player: getCookieValue('player')});
+socket.on('timeLeft', function (data) {
+    timeleft = data.time;
+    document.getElementById("countdown").innerHTML = timeleft + " seconds remaining";
+});
 var downloadTimer = setInterval(function () {
     if (timeleft == 0) {
         document.getElementById("countdown").innerHTML = "Finished";

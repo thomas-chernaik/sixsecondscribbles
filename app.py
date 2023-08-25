@@ -186,6 +186,12 @@ def handle_join(data):
     emit('player_joined', {'player': app.config['GAMES'][data['room']].getPlayers()}, room=data['room'])
 
 
+@socketio.on('get_time')
+def handle_get_time(data):
+    client_sid = request.sid
+    time = app.config['GAMES'][data['room']].get_time_left()
+    emit('timeLeft', {'time': time}, room=client_sid)
+
 @socketio.on('disconnect')
 def handle_disconnect():
     print('Client disconnected')

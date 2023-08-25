@@ -8,6 +8,7 @@ class Game:
         self.lastTimeNewRound = time.time()
         self.socket = socket
         self.cards = self.get_all_cards()
+        self.roundLength = 60
         self.usedCards = set()
         self.players = []
         self.code = code
@@ -23,6 +24,9 @@ class Game:
 
     def get_time_since_last_round(self):
         return time.time() - self.lastTimeNewRound
+
+    def get_time_left(self):
+        return int(self.roundLength - (time.time() - self.lastTimeNewRound))
 
     def get_all_cards(self):
         cards = {}
@@ -167,7 +171,7 @@ class Game:
             self.locked = False
             return # already voted
         self.startVotes += 1
-        if self.startVotes > len(self.players) / 2 and len(self.players) >= 1:
+        if self.startVotes > len(self.players) / 2 and len(self.players) >= 3   :
             self.startVotesPlayers = set()
             self.startVotes = 0
             self.locked = False
