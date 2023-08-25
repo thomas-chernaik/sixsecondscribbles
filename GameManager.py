@@ -80,7 +80,7 @@ class Game:
             playerNum -= len(self.players)
         card = self.players_cards[self.players[playerNum]]
         self.locked = False
-        return self.players[playerNum]  # return card
+        return self.players[playerNum] + ";" + card # return card and player name
 
     def add_score(self, player1, player2, score):
         while self.locked:
@@ -160,7 +160,7 @@ class Game:
             self.locked = False
             return # already voted
         self.startVotes += 1
-        if self.startVotes > len(self.players) / 2 and len(self.players) >= 3:
+        if self.startVotes > len(self.players) / 2 and len(self.players) >= 1:
             self.startVotesPlayers = set()
             self.startVotes = 0
             self.locked = False

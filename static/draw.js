@@ -161,7 +161,7 @@ document.addEventListener('keydown', function (event) {
 });
 
 //count down timer from 60 to 0
-var timeleft = 59;
+var timeleft = 0;
 var downloadTimer = setInterval(function () {
     if (timeleft == 0) {
         document.getElementById("countdown").innerHTML = "Finished";
@@ -196,10 +196,32 @@ function getCardTitle() {
         .then(data => {
             // Process the response data
             console.log(data); // Log the response data
-            var title = document.createElement("h4");
-            title.style.textAlign = "center";
-            title.innerText = "This is " + data + "'s drawing"; // Set the response data as the title text
-            document.body.prepend(title);
+            //split the data into the name of the person who drew the card and the card title
+            var player = data.split(";")[0];
+            var cardTitle = data.split(";")[1];
+            //put the player's name on the left side, and the card title on the right side in desktop view
+            //put the player's name on the top, and the card title on the bottom in mobile view
+            //create a row to hold the titles
+            var row = document.createElement("div");
+            row.className = "row";
+            //set the rows elements to be centered
+            row.style.justifyContent = "center";
+            //create a column to hold the player's name, format it, and add it to the row
+            var playerCol = document.createElement("div");
+            playerCol.className = "col-md-3 d-flex justify-content-center";
+            playerCol.style.fontSize = "2em";
+            playerCol.innerText = "This is " + player + "'s card";
+            row.appendChild(playerCol);
+            //create a column to hold the card title, format it, and add it to the row
+            var cardTitleCol = document.createElement("div");
+            cardTitleCol.className = "col-md-3 d-flex justify-content-center";
+            cardTitleCol.style.fontSize = "2em";
+            cardTitleCol.innerText = "The category is: " + cardTitle;
+            row.appendChild(cardTitleCol);
+            //add the row to the top of the page
+            document.getElementById("canvas-items").prepend(row);
+
+
         })
         .catch(error => {
             // Handle any errors
@@ -233,7 +255,11 @@ function replaceCanvasItemsWithImage() {
     }
     //add the image
     var image = document.createElement("img");
-    image.src = "/getImage";
+    image.id = "canvas-image";
+    image.setAttribute("tries", 0);
+
+    loadImage(image);
+    image.onerror = imageFailedToLoad;
     //apply the formatting from the canvas to the image
     var padding = 0.05 * window.innerWidth;
     var imageSizeW = window.innerWidth - 2 * padding;
@@ -251,9 +277,24 @@ function replaceCanvasItemsWithImage() {
 
     //make the submit button visible
     document.getElementById("submit-btn").style.visibility = "visible";
-
-
 }
+
+function loadImage(image) {
+    image.src = "/getImage";
+}
+
+function imageFailedToLoad() {
+    //if the image failed to load, try again, up to 5 times
+    var image = document.getElementById("canvas-image");
+    if (image.getAttribute("src") == "/getImage") {
+        var tries = image.getAttribute("tries");
+        if (tries < 5) {
+            image.setAttribute("tries", tries + 1);
+            loadImage(image);
+        }
+    }
+}
+
 
 function submitCards() {
     //count the number of green cards
