@@ -161,7 +161,7 @@ document.addEventListener('keydown', function (event) {
 });
 
 //count down timer from 60 to 0
-var timeleft = 0;
+var timeleft = 5;
 var downloadTimer = setInterval(function () {
     if (timeleft == 0) {
         document.getElementById("countdown").innerHTML = "Finished";

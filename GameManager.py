@@ -5,30 +5,28 @@ import time
 
 class Game:
     def __init__(self, code, socket):
+        self.lastTimeNewRound = time.time()
         self.socket = socket
         self.cards = self.get_all_cards()
-        self.usedCards = []
+        self.usedCards = set()
         self.players = []
         self.code = code
-        self.rounds = 0
-        self.current_round = 0
         self.scores = {}
         self.locked = False
         self.current_difficulty = 0
         self.difficulty_votes = {}
-        self.roundStartTime = 0
-        self.drawLeadTime = 5
-        self.drawTime = 60
-        self.displayLeaderboardTime = 20
         self.startVotes = 0
         self.numToPass = 0
         self.numScored = 0
         self.players_cards = {}
         self.startVotesPlayers = set()
 
+    def get_time_since_last_round(self):
+        return time.time() - self.lastTimeNewRound
+
     def get_all_cards(self):
         cards = {}
-        with open("cards.txt", "r") as cards_file:
+        with (open("cards.txt", "r") as cards_file):
             for card in cards_file.readlines():
                 #strip the newline character
                 card = card.strip()
@@ -43,9 +41,12 @@ class Game:
                     card_difficulty = 2
                 #add the card to the dictionary, without the difficulty
                 if card_difficulty in cards:
-                    cards[card_difficulty].append(card.split(',')[0:1] + card.split(',')[2:])
+                    cards[card_difficulty].append(tuple(card.split(',')[0:1] + card.split(',')[2:]))
                 else:
-                    cards[card_difficulty] = [card.split(',')[0:1] + card.split(',')[2:]]
+                    cards[card_difficulty] = list()
+                    cards[card_difficulty].append(tuple(card.split(',')[0:1] + card.split(',')[2:]))
+        print(cards)
+        print(".")
         return cards
 
 
@@ -57,17 +58,22 @@ class Game:
         self.scores[player] = 0
         self.locked = False
 
+
     def get_card(self, player):
         while self.locked:
             time.sleep(1)
         self.locked = True
+        #check if the player already has a card
+        if player in self.players_cards:
+            self.locked = False
+            return self.players_cards[player]
         if len(self.usedCards) == len(self.cards):
-            self.usedCards = []
+            self.usedCards = set()
         card = random.choice(self.cards[self.current_difficulty])
         while card in self.usedCards:
             card = random.choice(self.cards[self.current_difficulty])
-        self.usedCards.append(card)
-        self.players_cards[player] = card[0]
+        self.usedCards.add(card)
+        self.players_cards[player] = card
         self.locked = False
         return card
 
@@ -78,7 +84,7 @@ class Game:
         playerNum = self.players.index(player) + self.numToPass
         if playerNum >= len(self.players):
             playerNum -= len(self.players)
-        card = self.players_cards[self.players[playerNum]]
+        card = self.players_cards[self.players[playerNum]][0]
         self.locked = False
         return self.players[playerNum] + ";" + card # return card and player name
 
@@ -138,11 +144,12 @@ class Game:
         while self.locked:
             time.sleep(1)
         self.locked = True
-        self.current_round += 1
+        self.lastTimeNewRound = time.time()
+        #clean up the card titles
+        self.players_cards = {}
         self.locked = False
         self.set_difficulty()
         self.locked = True
-        self.roundStartTime = time.time()
         self.numToPass += 1
         self.numToPass %= len(self.players)
         if self.numToPass == 0:

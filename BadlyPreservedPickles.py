@@ -19,7 +19,7 @@ class BadlyPreservedPickles:
                     os.remove(path)
                     print("hi")
                     self.fileExpiry.remove(file)
-            time.sleep(1)
+            time.sleep(30)
 
     def pickle(self, obj, linkName, expiry):
         filename = linkName + ".pickle"
