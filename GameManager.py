@@ -71,11 +71,13 @@ class Game:
         if player in self.players_cards:
             self.locked = False
             return self.players_cards[player]
-        if len(self.usedCards) == len(self.cards[self.current_difficulty]):
-            self.usedCards = set()
         card = random.choice(self.cards[self.current_difficulty])
+        failCount = 0
         while card in self.usedCards:
             card = random.choice(self.cards[self.current_difficulty])
+            failCount += 1
+            if failCount > len(self.cards[self.current_difficulty] * 2):
+                self.usedCards = set()
         self.usedCards.add(card)
         self.players_cards[player] = card
         self.locked = False
