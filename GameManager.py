@@ -71,7 +71,7 @@ class Game:
         if player in self.players_cards:
             self.locked = False
             return self.players_cards[player]
-        if len(self.usedCards) == len(self.cards):
+        if len(self.usedCards) == len(self.cards[self.current_difficulty]):
             self.usedCards = set()
         card = random.choice(self.cards[self.current_difficulty])
         while card in self.usedCards:
